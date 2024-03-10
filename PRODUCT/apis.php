@@ -58,11 +58,11 @@ function addProduct()
         echo json_encode($data);
         exit();
     } else {
-        if (isset($_POST['pDesc'], $_POST['pPrice'], $_POST['pImg'], $_POST['pShipingCost'])) {
+        if (isset($_POST['pDesc'], $_POST['pPrice'], $_POST['pImg'], $_POST['pShippingCost'])) {
             $pDesc = htmlspecialchars($_POST['pDesc']);
             $pPrice = htmlspecialchars($_POST['pPrice']);
             $pImg = htmlspecialchars($_POST['pImg']);
-            $pShippingCost = htmlspecialchars($_POST['pShipingCost']);
+            $pShippingCost = htmlspecialchars($_POST['pShippingCost']);
             if (empty($pDesc) || empty($pPrice) || empty($pImg) || empty($pShippingCost)) {
                 http_response_code(400);
                 echo json_encode(array('error' => 'Please fill in every detail'));
@@ -146,11 +146,11 @@ function deleteProduct()
         echo json_encode($data);
         exit();
     } else {
-        if (isset($_DELETE["id"]) || !empty($_DELETE["id"])) {
-            $uid = $_DELETE["id"];
+        if (isset($_DELETE["pId"]) || !empty($_DELETE["pId"])) {
+            $pid = $_DELETE["pId"];
             $query = $con->prepare("DELETE FROM product where pId=?");
             if ($query) {
-                $query->bind_param("s", $uid);
+                $query->bind_param("s", $pid);
                 if ($query->execute()) {
                     $data = array('status' => '200', 'message' => 'product removed successfully');
                     echo json_encode($data);

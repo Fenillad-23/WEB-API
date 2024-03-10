@@ -11,7 +11,7 @@ if ($requestMethod == "GET") {
     echo $productList;
 }
 elseif($requestMethod =="DELETE"){
-    // $productList = deleteProduct();
+     $productList = deleteProduct();
     // echo $productList;
 } elseif($requestMethod=="PUT"){
     $productList = updateProduct();
