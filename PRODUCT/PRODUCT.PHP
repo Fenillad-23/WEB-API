@@ -1,22 +1,20 @@
 <?php
 require ('../dbConnection.php');
 include('apis.php'); 
-
-
 $requestMethod = $_SERVER["REQUEST_METHOD"];
 
 if ($requestMethod == "GET") {
-    $userList = getUserList();
-    echo $userList;
+    $productList = getProductList();
+    echo $productList;
 } elseif ($requestMethod == "POST") {
-    $userList = addUser();
-    echo $userList;
+    $productList = addProduct();
+    echo $productList;
 }elseif($requestMethod =="DELETE"){
-    $userList = deleteUser();
-    echo $userList;
+    $productList = deleteProduct();
+    echo $productList;
 } elseif($requestMethod=="PUT"){
-    $userList = updateUser();
-    echo $userList;
+    $productList = updateProduct();
+    echo $productList;
 }else {
     $data = [
         'status' => 405,
@@ -25,4 +23,3 @@ if ($requestMethod == "GET") {
     header("HTTP/1.0 405 Method Not Allowed");
     echo json_encode($data);
 }
-
