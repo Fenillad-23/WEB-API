@@ -1,6 +1,6 @@
 <?php
 require ('../dbConnection.php');
-include('function.php'); 
+include('apis.php'); 
 
 
 
@@ -8,14 +8,18 @@ include('function.php');
 $requestMethod = $_SERVER["REQUEST_METHOD"];
 
 if ($requestMethod == "GET") {
-    $customerList = getUserList();
-    echo $customerList;
+    $userList = getUserList();
+    echo $userList;
 } elseif ($requestMethod == "POST") {
-    $customerList = addUser();
-    echo $customerList;
-}elseif($requestMethod =='DELETE'){
-    $customerList = deleteUser();
-} else {
+    $userList = addUser();
+    echo $userList;
+}elseif($requestMethod =="DELETE"){
+    $userList = deleteUser();
+    echo $userList;
+} elseif($requestMethod=="PUT"){
+    $userList = updateUser();
+    echo $userList;
+}else {
     $data = [
         'status' => 405,
         'message'=> $requestMethod. ' request method not allowed',
@@ -23,4 +27,4 @@ if ($requestMethod == "GET") {
     header("HTTP/1.0 405 Method Not Allowed");
     echo json_encode($data);
 }
-?>
+
