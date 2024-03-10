@@ -7,14 +7,14 @@ if ($requestMethod == "GET") {
     $cartProductList = getCartProductList();
     echo $cartProductList;
 } elseif ($requestMethod == "POST") {
-    // $productList = addProduct();
-    // echo $productList;
+     $productList = addCartProduct();
+     echo $productList;
 }
 elseif($requestMethod =="DELETE"){
-     $productList = deleteProduct();
+     $productList = deleteCartProduct();
     // echo $productList;
 } elseif($requestMethod=="PUT"){
-   // $productList = updateProduct();
+   $productList = updateCartProduct();
    // echo $productList;
 }
 else {
