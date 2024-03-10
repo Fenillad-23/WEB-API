@@ -10,13 +10,13 @@ if ($requestMethod == "GET") {
     $productList = addProduct();
     echo $productList;
 }
-// elseif($requestMethod =="DELETE"){
-//     $productList = deleteProduct();
-//     echo $productList;
-// } elseif($requestMethod=="PUT"){
-//     $productList = updateProduct();
-//     echo $productList;
-// }
+elseif($requestMethod =="DELETE"){
+    // $productList = deleteProduct();
+    // echo $productList;
+} elseif($requestMethod=="PUT"){
+    $productList = updateProduct();
+    echo $productList;
+}
 else {
     $data = [
         'status' => 405,
