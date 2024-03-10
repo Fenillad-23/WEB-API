@@ -161,7 +161,7 @@ function deleteUser()
                     echo json_encode($data);
                 } else {
                     http_response_code(500);
-                    $response = array('status' => 'error', 'message' => 'Problem while adding user: ' . $con->error);
+                    $response = array('status' => 'error', 'message' => 'Problem while removing user: ' . $con->error);
                     echo json_encode($response);
                 }
                 $query->close();
