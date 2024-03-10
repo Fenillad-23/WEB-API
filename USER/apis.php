@@ -16,7 +16,7 @@ function getUserList()
     if ($query) {
         if ($query->execute()) {
             $users = $query->get_result();
-
+    
             if ($users->num_rows > 0) {
                 $res = $users->fetch_all(MYSQLI_ASSOC);
                 $data = [
@@ -35,7 +35,8 @@ function getUserList()
                 return json_encode($data);
             }
         }
-    } else {
+    }
+    else {
         $data = [
             'status' => 500,
             'message' => 'Query execution error: ' . mysqli_error($con),
@@ -102,28 +103,27 @@ function addUser()
     }
 }
 
-function updateUser()
-{
+function updateUser(){
     global $con;
     parse_str(file_get_contents("php://input"), $_PUT);
-    if (!$con) {
-        $data = ['status' => 500, 'message' => 'Database connection error'];
+    if(!$con){
+        $data = ['status' => 500,'message'=> 'Database connection error'];
         header("HTTP/1.0 500 Internal Server Error");
         echo json_encode($data);
         exit();
-    } else {
-        if (isset($_PUT['id']) && !empty($_PUT['id'])) {
+    }else{
+        if(isset($_PUT['id']) && !empty($_PUT['id'])){
             $uid = $_PUT['id'];
             $email = $_PUT['uEmail'];
             $username = $_PUT['uUsername'];
             $shippingAddress = $_PUT['uShippingAddress'];
             $query = $con->prepare('UPDATE user SET uEmail=?, uUsername=?,uShippingAddress=? where uid=?');
-            if ($query) {
-                $query->bind_param('ssss', $email, $username, $shippingAddress, $uid);
-                if ($query->execute()) {
+            if($query){
+                $query->bind_param('ssss', $email, $username,$shippingAddress,$uid);
+                if($query->execute()){
                     $data = array('status' => '200', 'message' => 'user info successfully updated');
                     echo json_encode($data);
-                } else {
+                }else {
                     http_response_code(500);
                     $response = array('status' => 'error', 'message' => 'Problem while updating userinfo: ' . $con->error);
                     echo json_encode($response);
@@ -131,11 +131,12 @@ function updateUser()
                 $query->close();
             }
             $con->close();
-        } else {
+        }else{
             http_response_code(400);
             echo json_encode(array('error' => 'Please provide user id to update record'));
         }
     }
+
 }
 function deleteUser()
 {

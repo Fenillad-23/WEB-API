@@ -133,3 +133,38 @@ function updateProduct(){
     }
 
 }
+function deleteProduct()
+{
+    global $con;
+    parse_str(file_get_contents("php://input"), $_DELETE);
+    if (!$con) {
+        $data = [
+            'status' => 500,
+            'message' => 'Database connection error',
+        ];
+        header("HTTP/1.0 500 Internal Server Error");
+        echo json_encode($data);
+        exit();
+    } else {
+        if (isset($_DELETE["id"]) || !empty($_DELETE["id"])) {
+            $uid = $_DELETE["id"];
+            $query = $con->prepare("DELETE FROM product where pId=?");
+            if ($query) {
+                $query->bind_param("s", $uid);
+                if ($query->execute()) {
+                    $data = array('status' => '200', 'message' => 'product removed successfully');
+                    echo json_encode($data);
+                } else {
+                    http_response_code(500);
+                    $response = array('status' => 'error', 'message' => 'Problem while adding user: ' . $con->error);
+                    echo json_encode($response);
+                }
+                $query->close();
+            }
+            $con->close();
+        } else {
+            http_response_code(400);
+            echo json_encode(array('error' => 'Please provide user id'));
+        }
+    }
+}
