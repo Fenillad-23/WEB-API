@@ -9,13 +9,15 @@ if ($requestMethod == "GET") {
 } elseif ($requestMethod == "POST") {
     $productList = addProduct();
     echo $productList;
-}elseif($requestMethod =="DELETE"){
-    $productList = deleteProduct();
-    echo $productList;
-} elseif($requestMethod=="PUT"){
-    $productList = updateProduct();
-    echo $productList;
-}else {
+}
+// elseif($requestMethod =="DELETE"){
+//     $productList = deleteProduct();
+//     echo $productList;
+// } elseif($requestMethod=="PUT"){
+//     $productList = updateProduct();
+//     echo $productList;
+// }
+else {
     $data = [
         'status' => 405,
         'message'=> $requestMethod. ' request method not allowed',
