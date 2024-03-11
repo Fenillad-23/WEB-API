@@ -4,16 +4,17 @@ include('apis.php');
 $requestMethod = $_SERVER["REQUEST_METHOD"];
 
 if ($requestMethod == "GET") {
-    $cartProductList = getCartProductList();
-    echo $cartProductList;
+    $commentList = getCommentList();
+    echo $commentList;
 } elseif ($requestMethod == "POST") {
-     $cartProductList = addCartProduct();
+    //  $commentList = addComments();
+     
 }
 elseif($requestMethod =="DELETE"){
-     $cartProductList = deleteCartProduct();
+    //  $commentList = deleteComment();
 
 } elseif($requestMethod=="PUT"){
-   $cartProductList = updateCartProduct();
+//    $commentList = updateComment();
 
 }
 else {
