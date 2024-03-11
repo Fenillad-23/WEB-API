@@ -54,3 +54,54 @@ function getCommentList()
     }
 }
 
+function addComment()
+{
+    global $con;
+
+    if (!$con) {
+        $data = [
+            'status' => 500,
+            'message' => 'Database connection error',
+        ];
+        header("HTTP/1.0 500 Internal Server Error");
+        echo json_encode($data);
+        exit();
+    } else {
+        // Decode JSON data
+        $postData = json_decode(file_get_contents("php://input"), true);
+        
+        // Extract data from JSON
+        $pId = htmlspecialchars($postData['pId']);
+        $uId = htmlspecialchars($postData['uId']);
+        $rating = htmlspecialchars($postData['rating']);
+        $images = htmlspecialchars($postData['images']);
+        $text = htmlspecialchars($postData['text']);
+
+        // Validate data
+        if (empty($pId) || empty($uId) || empty($rating) || empty($text) || empty($images)) {
+            http_response_code(400);    
+            echo json_encode(array('error' => 'Please fill in every detail'));
+            exit();
+        } else {
+            // Prepare and execute the query
+            $query = $con->prepare("INSERT INTO comments (pId, uId, rating, images, text) VALUES (?, ?, ?, ?, ?)");
+            if ($query) {
+                $query->bind_param('iisss', $pId, $uId, $rating, $images, $text); 
+                if ($query->execute()) {
+                    $response = array('status' => 'success', 'message' => 'comment added successfully');
+                    echo json_encode($response);
+                } else {
+                    http_response_code(500);
+                    $response = array('status' => 'error', 'message' => 'Problem while adding comment: ' . $con->error);
+                    echo json_encode($response);
+                }
+                $query->close();
+            } else {
+                http_response_code(500);
+                $response = array('status' => 'error', 'message' => 'Problem preparing query: ' . $con->error);
+                echo json_encode($response);
+            }
+            $con->close();
+        }
+    }
+}

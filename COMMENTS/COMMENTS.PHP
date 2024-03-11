@@ -7,7 +7,7 @@ if ($requestMethod == "GET") {
     $commentList = getCommentList();
     echo $commentList;
 } elseif ($requestMethod == "POST") {
-    //  $commentList = addComments();
+     $commentList = addComment();
      
 }
 elseif($requestMethod =="DELETE"){
