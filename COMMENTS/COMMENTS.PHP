@@ -5,16 +5,16 @@ $requestMethod = $_SERVER["REQUEST_METHOD"];
 
 if ($requestMethod == "GET") {
     $commentList = getCommentList();
-    echo $commentList;
+    // echo $commentList;
 } elseif ($requestMethod == "POST") {
      $commentList = addComment();
      
 }
 elseif($requestMethod =="DELETE"){
-    //  $commentList = deleteComment();
+      $commentList = deleteComment();
 
 } elseif($requestMethod=="PUT"){
-//    $commentList = updateComment();
+   $commentList = updateComment();
 
 }
 else {
